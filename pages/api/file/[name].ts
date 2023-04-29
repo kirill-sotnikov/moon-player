@@ -5,15 +5,14 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Buffer | "ERROR">
 ) {
-  return readFile(
-    `music/${req.query.name}/${req.query.file}`,
-    (error, data) => {
+  return new Promise((resolve, reject) => {
+    readFile(`music/${req.query.name}/${req.query.file}`, (error, data) => {
       if (error) {
-        res.status(500);
+        reject(res.status(500).send("ERROR"));
       }
       if (data) {
-        res.status(200).send(data);
+        resolve(res.status(200).send(data));
       }
-    }
-  );
+    });
+  });
 }

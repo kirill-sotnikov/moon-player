@@ -1,4 +1,4 @@
-import { exec } from "child_process";
+import fs from "fs";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default function handler(
@@ -6,13 +6,16 @@ export default function handler(
   res: NextApiResponse<string[]>
 ) {
   // const data = readFileSync(`music/${req.query.name}`);
+
   return new Promise((resolve, reject) => {
-    exec(`ls music/${req.query.name}`, (error, stdout, stdin) => {
-      if (stdout) {
-        resolve(res.status(200).json(stdout.split("\n")));
-      } else {
-        reject(res.status(500).send(["ERROR"]));
+    fs.readdir(`music/${req.query.name}`, (err, files) => {
+      if (err) {
+        reject(res.status(500).send([]));
       }
+
+      resolve(
+        res.status(200).json(files.filter((item) => item !== ".DS_Store"))
+      );
     });
   });
 }
