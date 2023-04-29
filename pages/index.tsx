@@ -1,9 +1,9 @@
 import axios from "axios";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Audio } from "../src/components/Audio";
 
 export default () => {
-  const [music, setMusic] = useState<string[]>();
+  const [albumList, setAlbumList] = useState<string[]>();
   const [isPause, setIsPause] = useState(false);
   const [nowPlay, setNowPlay] = useState<HTMLAudioElement | null>(null);
 
@@ -12,24 +12,19 @@ export default () => {
   }, [nowPlay]);
 
   useEffect(() => {
-    axios.get("api/musicList").then((data) => setMusic(data.data));
+    axios.get("api/albumList").then((data) => setAlbumList(data.data));
   }, []);
 
   return (
     <div>
       <h1>Player</h1>
-      {music &&
-        music.map(
+      {albumList &&
+        albumList.map(
           (item) =>
             item && (
-              <span key={item}>
-                {item.replace(".mp3", "")}
-                <Audio
-                  nowPlay={nowPlay}
-                  setNowPlay={setNowPlay}
-                  src={`api/file/${item}`}
-                ></Audio>
-              </span>
+              <div key={item}>
+                <Link href={item}>{item}</Link>
+              </div>
             )
         )}
       <button

@@ -1,10 +1,19 @@
-import { readFileSync } from "fs";
+import { readFile } from "fs";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Buffer>
+  res: NextApiResponse<Buffer | "ERROR">
 ) {
-  const data = readFileSync(`music/${req.query.name}`);
-  res.status(200).send(data);
+  return readFile(
+    `music/${req.query.name}/${req.query.file}`,
+    (error, data) => {
+      if (error) {
+        res.status(500);
+      }
+      if (data) {
+        res.status(200).send(data);
+      }
+    }
+  );
 }
