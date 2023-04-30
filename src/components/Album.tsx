@@ -29,7 +29,7 @@ export const Album = memo<AlbumProps>(({ albumNameAndAuthor }) => {
   }, []);
 
   return (
-    <div>
+    <div className="albumWrapper">
       <AlbumIcon
         src={`api/file/${albumNameAndAuthor}?file=img.jpeg`}
         alt="ICON"

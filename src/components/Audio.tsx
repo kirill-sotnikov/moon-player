@@ -25,7 +25,7 @@ export const Audio = memo<AudioProps>(
     return (
       <div
         style={{
-          margin: "10px 0 0 0",
+          margin: "15px 0 0 0",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",

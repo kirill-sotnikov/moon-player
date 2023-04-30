@@ -10,7 +10,7 @@ export default function handler(
   return new Promise((resolve, reject) => {
     fs.readdir("music/", (err, files) => {
       if (err) {
-        reject(err);
+        reject(res.status(500).json([]));
       }
 
       resolve(

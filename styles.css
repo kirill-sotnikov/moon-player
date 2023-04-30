@@ -35,7 +35,7 @@ span {
 }
 
 .AlbumTitle {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   -webkit-mask-image: linear-gradient(to top, transparent -115%, black 80%);
   mask-image: linear-gradient(to top, transparent -115%, black 80%);
 }
@@ -50,4 +50,16 @@ span {
   margin: 0 15px;
   display: grid;
   grid-template-columns: 50% 50%;
+}
+
+.albumWrapper {
+  animation: anim 1s;
+}
+@keyframes anim {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
