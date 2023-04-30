@@ -6,7 +6,7 @@ const AlbumPage = () => {
   const { album } = router.query;
 
   if (album) {
-    return <Album albumName={album as string} />;
+    return <Album albumNameAndAuthor={album as string} />;
   } else {
     return "PLEASE WAIT";
   }

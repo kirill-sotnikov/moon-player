@@ -3,73 +3,87 @@ import { memo, useEffect, useState } from "react";
 import { keyof } from "ts-keyof";
 import { AlbumIcon } from "./AlbumIcon";
 import { Audio } from "./Audio";
+import { BigButton } from "./BigButton";
 
 interface AlbumProps {
-  albumName: string;
+  albumNameAndAuthor: string;
 }
 
-export const Album = memo<AlbumProps>(({ albumName }) => {
+export const Album = memo<AlbumProps>(({ albumNameAndAuthor }) => {
   const [musicList, setMusicList] = useState<Array<string>>([]);
   const [nowPlay, setNowPlay] = useState<HTMLAudioElement | null>(null);
   const [isPause, setIsPause] = useState(false);
-  const [icon, setIcon] = useState("");
+  const [albumName, author] = albumNameAndAuthor.split("-");
 
   useEffect(() => {
-    axios.get(`api/album/${albumName}`).then((data) => {
+    axios.get(`api/album/${albumNameAndAuthor}`).then((data) => {
       setMusicList(
         data.data.filter((item: string) => item && !item.includes(".txt"))
       );
     });
-    axios.get(`api/file/${albumName}?file=img.txt`).then((data) => {
-      setIcon(data.data);
-    });
+    const [album, author] = albumName.split("-");
+
+    // axios.get(`api/file/${albumName}?file=img.jpeg`).then((data) => {
+    //   setIcon(data.data);
+    // });
   }, []);
 
   return (
     <div>
-      {icon && <AlbumIcon src={icon} alt="ICON" />}
+      <AlbumIcon
+        src={`api/file/${albumNameAndAuthor}?file=img.jpeg`}
+        alt="ICON"
+      />
+
       <div
         style={{
-          padding: "0 20px",
-          marginTop: icon ? -50 : 0,
-          paddingTop: !icon && 20,
+          padding: "0 20px 20px 20px",
+          marginTop: -50,
+          paddingTop: 20,
         }}
       >
-        <h1 className="AlbumTitle">{albumName}</h1>
+        <h1 className="AlbumTitle">{albumName.replaceAll("_", " ")}</h1>
         {musicList &&
           musicList.map((item, index, array) => (
             <Audio
-              index={index}
+              index={index + 1}
               title={item.replace(".mp3", "")}
               nowPlay={nowPlay}
               setNowPlay={setNowPlay}
-              src={`api/file/${albumName}?file=${item}`}
+              src={`api/file/${albumNameAndAuthor}?file=${item}`}
               key={item}
-              album={albumName}
+              album={albumNameAndAuthor}
               nextAudio={array[index + 1] && array[index + 1]}
             ></Audio>
           ))}
       </div>
-      <button
-        onClick={() => {
-          if (nowPlay) {
-            nowPlay.play();
-            setIsPause(false);
-          }
-        }}
-      >
-        PLAY
-      </button>
-      <button
-        onClick={() => {
-          if (nowPlay) {
-            nowPlay.pause();
-            setIsPause(true);
-          }
-        }}
-      >
-        PAUSE
-      </button>
+      {nowPlay && (
+        <div className="AlbumControlledButtons">
+          <BigButton
+            src="/BigButtonPause.svg"
+            alt="ButtonPause"
+            onClick={() => {
+              if (nowPlay) {
+                nowPlay.pause();
+                setIsPause(true);
+              }
+            }}
+          />
+          <BigButton
+            src="/BigButtonPlay.svg"
+            alt="ButtonPlay"
+            style={{ marginLeft: 10 }}
+            onClick={() => {
+              if (nowPlay) {
+                nowPlay.play();
+                setIsPause(false);
+              }
+            }}
+          />
+          {/* <button>PLAY</button>
+          <button>PAUSE</button> */}
+        </div>
+      )}
     </div>
   );
 });

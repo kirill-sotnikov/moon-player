@@ -9,7 +9,7 @@ body {
     #1d1627 46.89%,
     #060807 105.04%
   );
-  color: rgb(224, 222, 222);
+  color: #e0dede;
   font-family: sans-serif;
 }
 
@@ -28,6 +28,8 @@ span {
 }
 
 .AlbumIcon {
+  height: 320px;
+  object-fit: cover;
   -webkit-mask-image: linear-gradient(to top, transparent 5%, black 100%);
   mask-image: linear-gradient(to top, transparent 5%, black 100%);
 }
@@ -36,4 +38,16 @@ span {
   margin-bottom: 20px;
   -webkit-mask-image: linear-gradient(to top, transparent -115%, black 80%);
   mask-image: linear-gradient(to top, transparent -115%, black 80%);
+}
+
+.AlbumControlledButtons {
+  position: absolute;
+  left: 20px;
+  top: 220px;
+}
+
+.albumList {
+  margin: 0 15px;
+  display: grid;
+  grid-template-columns: 50% 50%;
 }

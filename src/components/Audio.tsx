@@ -5,6 +5,8 @@ import {
   memo,
   useState,
 } from "react";
+import { keyof } from "ts-keyof";
+import { ButtonPlayStop } from "./ButtonPlayStop";
 
 interface AudioProps extends ComponentPropsWithoutRef<"audio"> {
   setNowPlay: Dispatch<SetStateAction<HTMLAudioElement>>;
@@ -23,7 +25,7 @@ export const Audio = memo<AudioProps>(
     return (
       <div
         style={{
-          margin: "10px 0",
+          margin: "10px 0 0 0",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -31,11 +33,15 @@ export const Audio = memo<AudioProps>(
       >
         <span>
           <span
-            style={{ fontWeight: "inherit", color: "#473a5d", marginRight: 10 }}
+            style={{
+              fontWeight: "inherit",
+              color: isPlay ? "#9c74e3" : "#473a5d",
+              marginRight: 10,
+            }}
           >
             {index}{" "}
           </span>
-          <span>{title}</span>
+          <span>{title.replaceAll("_", " ")}</span>
         </span>
         <audio
           {...props}
@@ -69,7 +75,7 @@ export const Audio = memo<AudioProps>(
         ></audio>
         {ref && (
           <>
-            <button
+            {/* <button
               onClick={(event) => {
                 if (isPlay) {
                   ref.pause();
@@ -84,10 +90,27 @@ export const Audio = memo<AudioProps>(
               }}
             >
               {isPlay ? "PAUSE" : "PLAY"}
-            </button>
+            </button> */}
+            <ButtonPlayStop
+              onClick={(event) => {
+                if (isPlay) {
+                  ref.pause();
+                } else {
+                  if (nowPlay === ref) {
+                    ref.play();
+                  } else {
+                    ref.currentTime = 0;
+                    ref.play();
+                  }
+                }
+              }}
+              active={isPlay}
+            />
           </>
         )}
       </div>
     );
   }
 );
+
+Audio.displayName = keyof({ Audio });

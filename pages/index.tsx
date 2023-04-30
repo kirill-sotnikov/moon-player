@@ -1,6 +1,6 @@
 import axios from "axios";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import { AlbumPreview } from "../src/components/AlbumPreview";
 
 export default () => {
   const [albumList, setAlbumList] = useState<string[]>();
@@ -16,37 +16,26 @@ export default () => {
   }, []);
 
   return (
-    <div>
-      <h1>Player</h1>
-      {albumList &&
-        albumList.map(
-          (item) =>
-            item && (
-              <div key={item}>
-                <Link href={item}>{item}</Link>
-              </div>
-            )
-        )}
-      <button
-        onClick={() => {
-          if (isPause && nowPlay) {
-            nowPlay.play();
-            setIsPause(false);
-          }
-        }}
-      >
-        PLAY
-      </button>
-      <button
-        onClick={() => {
-          if (nowPlay) {
-            nowPlay.pause();
-            setIsPause(true);
-          }
-        }}
-      >
-        PAUSE
-      </button>
+    <div style={{ paddingTop: 20 }}>
+      <h1 style={{ margin: "0 20px 20px 20px" }}>Albums</h1>
+      <div className="albumList">
+        {albumList &&
+          albumList.map(
+            (item) =>
+              item && (
+                <AlbumPreview key={item} albumName={item} />
+                // <div key={item}>
+                //   <img
+                //     src={`api/file/${item}?file=img.jpeg`}
+                //     alt="albumImage"
+                //     width={120}
+                //     height={120}
+                //   />
+                //   <Link href={item}>{item.replaceAll("_", " ")}</Link>
+                // </div>
+              )
+          )}
+      </div>
     </div>
   );
 };

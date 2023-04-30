@@ -14,7 +14,13 @@ export default function handler(
       }
 
       resolve(
-        res.status(200).json(files.filter((item) => item !== ".DS_Store"))
+        res
+          .status(200)
+          .json(
+            files.filter(
+              (item) => item !== ".DS_Store" && !item.includes(".jpeg")
+            )
+          )
       );
     });
   });

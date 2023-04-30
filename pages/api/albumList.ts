@@ -9,7 +9,6 @@ export default function handler(
 
   return new Promise((resolve, reject) => {
     fs.readdir("music/", (err, files) => {
-      console.log("FILES!!!!!");
       if (err) {
         reject(err);
       }
