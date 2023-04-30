@@ -46,6 +46,7 @@ export const Audio = memo<AudioProps>(
         <audio
           {...props}
           controls
+          preload="none"
           style={{ display: "none" }}
           onPlay={(event) => {
             if (nowPlay && nowPlay !== ref) {
