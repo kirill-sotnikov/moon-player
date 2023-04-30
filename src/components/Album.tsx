@@ -21,12 +21,11 @@ export const Album = memo<AlbumProps>(({ albumNameAndAuthor }) => {
         data.data.filter((item: string) => item && !item.includes(".txt"))
       );
     });
-    const [album, author] = albumName.split("-");
-
-    // axios.get(`api/file/${albumName}?file=img.jpeg`).then((data) => {
-    //   setIcon(data.data);
-    // });
   }, []);
+
+  if (!musicList) {
+    return <p>please wait</p>;
+  }
 
   return (
     <div className="albumWrapper">

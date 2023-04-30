@@ -15,6 +15,10 @@ export default () => {
     axios.get("api/albumList").then((data) => setAlbumList(data.data));
   }, []);
 
+  if (!albumList) {
+    return <p>Please wait</p>;
+  }
+
   return (
     <div style={{ paddingTop: 20 }}>
       <h1 style={{ margin: "0 20px 20px 20px" }}>Albums</h1>

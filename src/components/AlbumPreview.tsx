@@ -10,7 +10,7 @@ export const AlbumPreview = memo<AlbumPreviewProps>(({ albumName }) => {
 
   return (
     <div
-      style={{ padding: "0 5px" }}
+      style={{ padding: "0 5px", marginTop: 20 }}
       onClick={() => {
         router.push(`${albumName}`);
       }}
@@ -23,7 +23,14 @@ export const AlbumPreview = memo<AlbumPreviewProps>(({ albumName }) => {
           borderRadius: 2,
         }}
       />
-      <p style={{ fontSize: 12, wordBreak: "break-word", margin: "2px 0" }}>
+      <p
+        style={{
+          fontSize: 12,
+          wordBreak: "break-word",
+          margin: "2px 0",
+          fontWeight: "bold",
+        }}
+      >
         {albumName.split("-")[0].replaceAll("_", " ")}
       </p>
       <p
