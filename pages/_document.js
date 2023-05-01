@@ -11,14 +11,13 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
             rel="stylesheet"
           />
-          <meta name="application-name" content="PWA App" />
+          <meta name="application-name" content="Moon" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
             name="apple-mobile-web-app-status-bar-style"
             content="black-translucent"
           />
-          <meta name="apple-mobile-web-app-title" content="PWA App" />
-          <meta name="description" content="Best PWA App in the world" />
+          <meta name="apple-mobile-web-app-title" content="Moon" />
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta
@@ -36,19 +35,6 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
           />
           <link rel="manifest" href="/manifest.json" />
-
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:url" content="https://yourdomain.com" />
-          <meta name="twitter:title" content="PWA App" />
-          <meta
-            name="twitter:description"
-            content="Best PWA App in the world"
-          />
-          <meta
-            name="twitter:image"
-            content="https://yourdomain.com/icons/android-chrome-192x192.png"
-          />
-          <meta name="twitter:creator" content="@DavidWShadow" />
           <meta property="og:type" content="website" />
           <meta property="og:title" content="PWA App" />
           <meta property="og:description" content="Best PWA App in the world" />

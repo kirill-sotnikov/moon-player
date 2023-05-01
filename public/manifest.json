@@ -1,6 +1,6 @@
 {
-  "name": "Next.JS Progressive Web App",
-  "short_name": "Next PWA",
+  "name": "Moon player",
+  "short_name": "Moon",
   "theme_color": "#1E2439",
   "background_color": "#1E2439",
   "display": "fullscreen",
