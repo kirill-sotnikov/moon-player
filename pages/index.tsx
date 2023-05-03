@@ -16,7 +16,11 @@ export default () => {
   }, []);
 
   if (!albumList) {
-    return <p>Please wait</p>;
+    return (
+      <div style={{ paddingTop: 20 }}>
+        <h1 style={{ margin: "0 20px 20px 20px" }}>Albums</h1>
+      </div>
+    );
   }
 
   return (

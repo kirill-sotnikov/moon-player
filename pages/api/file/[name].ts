@@ -8,10 +8,10 @@ export default function handler(
   return new Promise((resolve, reject) => {
     readFile(`music/${req.query.name}/${req.query.file}`, (error, data) => {
       if (error) {
-        reject(res.status(500).send("ERROR"));
+        return reject(res.status(500).send("ERROR"));
       }
       if (data) {
-        resolve(res.status(200).send(data));
+        return resolve(res.status(200).send(data));
       }
     });
   });
