@@ -9,11 +9,13 @@ export default function handler(
 
   return new Promise((resolve, reject) => {
     fs.readdir(`music/${req.query.name}`, (err, files) => {
-      if (err) {
-        reject(res.status(500).send([]));
+      if (err || typeof files === "undefined" || files.length < 1) {
+        console.log("ERROR");
+
+        return reject(res.status(500).send([]));
       }
 
-      resolve(
+      return resolve(
         res
           .status(200)
           .json(

@@ -5,7 +5,6 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title>Moon</title>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
@@ -37,9 +36,9 @@ export default class MyDocument extends Document {
           />
           <link rel="manifest" href="/manifest.json" />
           <meta property="og:type" content="website" />
-          <meta property="og:title" content="PWA App" />
-          <meta property="og:description" content="Best PWA App in the world" />
-          <meta property="og:site_name" content="PWA App" />
+          <meta property="og:title" content="Moon" />
+          <meta property="og:description" content="Music player" />
+          <meta property="og:site_name" content="Moon" />
           <meta property="og:url" content="https://yourdomain.com" />
           <meta
             property="og:image"
