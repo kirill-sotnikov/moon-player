@@ -47,10 +47,6 @@ export const PlayerContextProvider: FC<PropsWithChildren> = ({ children }) => {
     [playerRef]
   );
 
-  useEffect(() => {
-    console.log(musicList);
-  }, [musicList]);
-
   const play = useCallback(() => {
     playerRef.play();
     setIsPlay(true);
@@ -61,6 +57,24 @@ export const PlayerContextProvider: FC<PropsWithChildren> = ({ children }) => {
     setIsPlay(false);
   }, [playerRef]);
 
+  const prevTrack = useCallback(() => {
+    const prevMusicIndex = comp.index - 1;
+    const prevMusicName = musicList[prevMusicIndex];
+    console.log(`api/file/${comp.album}?file=${prevMusicName}`);
+
+    if (musicList[prevMusicIndex]) {
+      playerRef.src = `api/file/${comp.album}?file=${prevMusicName}`;
+      setMusic({
+        src: `api/file/${comp.album}?file=${prevMusicName}`,
+        album: comp.album,
+        index: prevMusicIndex,
+      });
+      setTimeout(() => {
+        play();
+      }, 100);
+    }
+  }, [musicList, playerRef, comp]);
+
   const nextTrack = useCallback(() => {
     // pause();
 
@@ -69,6 +83,7 @@ export const PlayerContextProvider: FC<PropsWithChildren> = ({ children }) => {
     console.log(`api/file/${comp.album}?file=${nextMusicName}`);
 
     if (musicList[nextMusicIndex]) {
+      playerRef.src = `api/file/${comp.album}?file=${nextMusicName}`;
       setMusic({
         src: `api/file/${comp.album}?file=${nextMusicName}`,
         album: comp.album,
@@ -88,10 +103,18 @@ export const PlayerContextProvider: FC<PropsWithChildren> = ({ children }) => {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: track && track.replace(".mp3", "").replaceAll("_", " "),
         artist:
-          srcWithArtist && srcWithArtist.replace("api/file/", "").split("-")[1],
+          srcWithArtist &&
+          srcWithArtist
+            .replace("api/file/", "")
+            .split("-")[1]
+            .replace("_", " "),
         album: comp.album,
         artwork: [{ src: `${srcWithArtist}?file=img.jpeg` }],
       });
+
+      navigator.mediaSession.setActionHandler("nexttrack", nextTrack);
+
+      navigator.mediaSession.setActionHandler("previoustrack", prevTrack);
     }
   }, [comp.src]);
 
