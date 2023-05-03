@@ -63,9 +63,10 @@ export const Audio = memo<AudioProps>(
             const all = document.querySelectorAll("audio");
 
             all.forEach((item) => {
+            console.log(item.src);
               if (
                 decodeURIComponent(item.src).replace(
-                  "http://localhost:3000/",
+                  "https://music.one-space.xyz/",
                   ""
                 ) === `api/file/${album}?file=${nextAudio}`
               ) {
