@@ -16,11 +16,19 @@ export const AlbumPreview = memo<AlbumPreviewProps>(({ albumName }) => {
       }}
     >
       <img
-        src={`api/file/${albumName}?file=img.jpeg`}
+        src={`album_placeholder.png`}
         alt="albumImage"
         width={"100%"}
+        onLoad={(event) => {
+          event.currentTarget.style.paddingTop = "0px";
+
+          if (event.currentTarget.src.includes("album_placeholder.png")) {
+            event.currentTarget.src = `api/file/${albumName}?file=img.jpeg`;
+          }
+        }}
         style={{
           borderRadius: 2,
+          paddingTop: "100%",
         }}
       />
       <p
