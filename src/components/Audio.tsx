@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, memo } from "react";
 import { keyof } from "ts-keyof";
 import { usePlayer } from "../Player";
+import { ButtonPlayStop } from "./ButtonPlayStop";
 
 interface AudioProps extends ComponentPropsWithoutRef<"audio"> {
   title: string;
@@ -37,26 +38,18 @@ export const Audio = memo<AudioProps>(
 
         <>
           {isPlay && src === comp.src ? (
-            <button
-              onClick={() => {
-                pause();
-              }}
-            >
-              pause
-            </button>
+            <ButtonPlayStop onClick={() => pause()} active={true} />
           ) : (
-            <button
+            <ButtonPlayStop
               onClick={() => {
                 setMusic({ src, album, index });
                 setTimeout(() => {
                   play();
                 }, 100);
               }}
-            >
-              play
-            </button>
+              active={false}
+            />
           )}
-          {/* <ButtonPlayStop onClick={(event) => {}} active={isPlay} /> */}
         </>
       </div>
     );
