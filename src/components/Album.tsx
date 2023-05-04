@@ -5,6 +5,7 @@ import { usePlayer } from "../Player";
 import { AlbumIcon } from "./AlbumIcon";
 import { Audio } from "./Audio";
 import { BigButton } from "./BigButton";
+import { ControlBar } from "./ControlBar";
 
 interface AlbumProps {
   albumNameAndAuthor: string;
@@ -77,6 +78,7 @@ export const Album = memo<AlbumProps>(({ albumNameAndAuthor }) => {
           </div>
         )}
       </>
+      <ControlBar />
     </div>
   );
 });

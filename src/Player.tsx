@@ -12,22 +12,26 @@ import {
 
 interface PlayerContextType {
   comp: { src: string; album; index: number | null };
+  duration: number | null;
   play: () => void;
   pause: () => void;
   isPlay: boolean;
   setMusic: ({}: PlayerContextType["comp"]) => void;
   musicList: Array<string>;
   setMusicList: Dispatch<SetStateAction<any[]>>;
+  playerRef: HTMLAudioElement | null;
 }
 
 const playerContext = createContext<PlayerContextType>({
   comp: { src: "", album: "", index: 0 },
+  duration: null,
   isPlay: false,
   play: () => {},
   pause: () => {},
   setMusic: () => {},
   musicList: [],
   setMusicList: () => {},
+  playerRef: null,
 });
 
 export const PlayerContextProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -39,6 +43,11 @@ export const PlayerContextProvider: FC<PropsWithChildren> = ({ children }) => {
   });
   const [isPlay, setIsPlay] = useState(false);
   const [musicList, setMusicList] = useState([]);
+  const [duration, setDuration] = useState<number | null>(null);
+
+  useEffect(() => {
+    console.log(duration);
+  }, [duration]);
 
   const setMusic = useCallback<PlayerContextType["setMusic"]>(
     (comp) => {
@@ -60,7 +69,6 @@ export const PlayerContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const prevTrack = useCallback(() => {
     const prevMusicIndex = comp.index - 1;
     const prevMusicName = musicList[prevMusicIndex];
-    console.log(`api/file/${comp.album}?file=${prevMusicName}`);
 
     if (musicList[prevMusicIndex]) {
       playerRef.src = `api/file/${comp.album}?file=${prevMusicName}`;
@@ -80,7 +88,6 @@ export const PlayerContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const nextMusicIndex = comp.index + 1;
     const nextMusicName = musicList[nextMusicIndex];
-    console.log(`api/file/${comp.album}?file=${nextMusicName}`);
 
     if (musicList[nextMusicIndex]) {
       playerRef.src = `api/file/${comp.album}?file=${nextMusicName}`;
@@ -98,7 +105,6 @@ export const PlayerContextProvider: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     if ("mediaSession" in navigator) {
       const [srcWithArtist, track] = comp.src.split("?file=");
-      console.log(srcWithArtist, track);
 
       navigator.mediaSession.metadata = new MediaMetadata({
         title: track && track.replace(".mp3", "").replaceAll("_", " "),
@@ -120,12 +126,22 @@ export const PlayerContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <playerContext.Provider
-      value={{ comp, setMusic, play, pause, isPlay, musicList, setMusicList }}
+      value={{
+        playerRef,
+        comp,
+        setMusic,
+        play,
+        pause,
+        isPlay,
+        musicList,
+        setMusicList,
+        duration,
+      }}
     >
       <audio
         src={comp.src}
         ref={setPlayerRef}
-        onCanPlay={() => console.log("can play")}
+        onCanPlay={(event) => setDuration(event.currentTarget.duration)}
         onEnded={() => {
           console.log("END");
 

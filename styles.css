@@ -11,6 +11,7 @@ body {
   );
   color: #e0dede;
   font-family: sans-serif;
+  padding-bottom: 50px;
 }
 
 html {
@@ -62,4 +63,17 @@ span {
   to {
     opacity: 1;
   }
+}
+
+.controlBar {
+  background-color: #060412f0;
+  height: 52px;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+}
+
+.controlBarStatus {
+  height: 7px;
+  background-color: #9c74e3;
 }
